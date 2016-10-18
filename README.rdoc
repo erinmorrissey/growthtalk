@@ -1,3 +1,5 @@
+{<img src="https://app.codeship.com/projects/a80de480-770f-0134-5623-6e92554ed125/status?branch=master" alt="Status?branch=master" />}[https://app.codeship.com/projects/179765]
+
 == README
 
 This README would normally document whatever steps are necessary to get the
