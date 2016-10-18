@@ -4,6 +4,13 @@ AllCops:
   Exclude:
     - 'db/**/*'
 
+Rails:
+  Enabled: true
+
 # Metrics
 Metrics/LineLength:
   Max: 100
+
+# Style
+Documentation:
+    Enabled: false
