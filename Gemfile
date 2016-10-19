@@ -50,3 +50,5 @@ end
 
 # Use RuboCop to enforce Ruby style guidelines
 gem 'rubocop', '~> 0.44.1', require: false
+
+gem 'simple_form'
