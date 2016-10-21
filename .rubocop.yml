@@ -7,10 +7,17 @@ AllCops:
 Rails:
   Enabled: true
 
+# Rails
+Rails/HttpPositionalArguments:
+  Enabled: false
+
 # Metrics
 Metrics/LineLength:
   Max: 100
 
 # Style
-Documentation:
-    Enabled: false
+Style/Documentation:
+  Enabled: false
+
+Style/FrozenStringLiteralComment:
+  Enabled: false
