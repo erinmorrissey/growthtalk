@@ -46,6 +46,7 @@ gem 'rails_12factor', group: :production
 
 group :development, :test do
   gem 'rspec-rails', '~> 3.0'
+  gem 'codeclimate-test-reporter', require: nil
 end
 
 # Use RuboCop to enforce Ruby style guidelines
