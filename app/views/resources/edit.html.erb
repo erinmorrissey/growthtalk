@@ -1,0 +1,8 @@
+<h1>Edit Resource</h1>
+
+<%= simple_form_for @resource, url: category_resource_path(@resource.category_id, @resource) do |f| %>
+  <%= f.input :name %>
+  <%= f.input :url %>
+  <%= f.input :logo_image %>
+  <%= f.submit "Update Resource" %>
+<% end %>

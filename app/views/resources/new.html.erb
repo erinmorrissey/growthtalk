@@ -1,0 +1,8 @@
+<h1>Add New Resource</h1>
+
+<%= simple_form_for @resource, url: category_resources_path(@category) do |f| %>
+  <%= f.input :name %>
+  <%= f.input :url %>
+  <%= f.input :logo_image %>
+  <%= f.submit "Add Resource" %>
+<% end %>
