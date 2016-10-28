@@ -9,5 +9,5 @@
 
 <% @category.resources.each do |resource| %>
   <p><%= resource.name %> - <%= resource.id %></p>
-  <%= link_to 'Show', category_resource_path(resource.category_id, resource.id) %>
+  <%= link_to 'Show', resource_path(resource) %>
 <% end %>

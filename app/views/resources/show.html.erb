@@ -1,4 +1,4 @@
 <%= @resource.name %>
 
-<%= link_to 'Edit', edit_category_resource_path(@resource.category_id, @resource.id) %>
-<%= link_to 'Destroy', category_resource_path(@resource.category_id, @resource.id), method: :delete, data: {confirm: 'Are you sure you want to delete this?'} %>
+<%= link_to 'Edit', edit_resource_path(@resource) %>
+<%= link_to 'Destroy', resource_path(@resource), method: :delete, data: {confirm: 'Are you sure you want to delete this?'} %>

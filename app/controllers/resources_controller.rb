@@ -1,4 +1,6 @@
 class ResourcesController < ApplicationController
+  before_action :find_resource, only: [:show, :edit, :update, :destroy]
+
   def new
     @category = Category.find_by(id: params[:category_id])
     @resource = Resource.new
@@ -12,27 +14,17 @@ class ResourcesController < ApplicationController
   end
 
   def show
-    @category = Category.find_by(id: params[:category_id])
-    @resource = Resource.find_by(id: params[:id])
-    return render text: 'Not Found :(', status: :not_found if @category.blank? || @resource.blank?
   end
 
   def edit
-    @category = Category.find_by(id: params[:category_id])
-    @resource = Resource.find_by(id: params[:id])
-    return render text: 'Not Found :(', status: :not_found if @category.blank? || @resource.blank?
   end
 
   def update
-    @resource = Resource.find_by(id: params[:id])
-    return render text: 'Not Found :(', status: :not_found if @resource.blank?
     @resource.update_attributes(resource_params)
     redirect_to category_path(@resource.category_id)
   end
 
   def destroy
-    @resource = Resource.find_by(id: params[:id])
-    return render text: 'Not Found :(', status: :not_found if @resource.blank?
     @resource.destroy
     redirect_to categories_path
   end
@@ -41,5 +33,14 @@ class ResourcesController < ApplicationController
 
   def resource_params
     params.require(:resource).permit(:name, :url, :logo_image)
+  end
+
+  def find_resource
+    @resource = Resource.find_by(id: params[:id])
+    return render_not_found if @resource.blank?
+  end
+
+  def render_not_found
+    render text: 'Not Found :(', status: :not_found
   end
 end
