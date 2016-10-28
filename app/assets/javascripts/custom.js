@@ -23,10 +23,9 @@
 
     // Offset for Main Navigation
     $('#mainNav').affix({
-        console.log("AFFIX")
         offset: {
             top: 50
         }
-    })
+    });
 
 })(jQuery); // End of use strict
