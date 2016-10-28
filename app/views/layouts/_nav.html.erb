@@ -12,15 +12,16 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-right">
-                <li>
-                    <a class="page-scroll" href="#download">Download</a>
-                </li>
-                <li>
-                    <a class="page-scroll" href="#features">Features</a>
-                </li>
-                <li>
-                    <a class="page-scroll" href="#contact">Contact</a>
-                </li>
+                <li><a class="page-scroll" href="#download">Download</a></li>
+                <li><a class="page-scroll" href="#features">Features</a></li>
+                <li><a class="page-scroll" href="#contact">Contact</a></li>
+            <% if current_user %>
+                <!-- <span class="navhandle">Hi,  current_user.username </span> -->
+                <li><%= link_to "Log out", destroy_user_session_path, method: :delete, class: 'users' %></li>
+            <% else %>
+                <li><%= link_to "Log In", new_user_session_path, class: 'users' %></li>
+                <li><%= link_to "Sign Up", new_user_registration_path, class: 'btn btn-sm btn-success users', role: 'button' %></li>
+            <% end %>
             </ul>
         </div>
         <!-- /.navbar-collapse -->
