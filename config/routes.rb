@@ -18,7 +18,9 @@ Rails.application.routes.draw do
   resources :categories do
     resources :resources, only: [:new, :create]
   end
-  resources :resources, only: [:show, :edit, :update, :destroy]
+  resources :resources, only: [:show, :edit, :update, :destroy] do
+    resources :comments, only: :create
+  end
 
   # Example resource route with options:
   #   resources :products do
