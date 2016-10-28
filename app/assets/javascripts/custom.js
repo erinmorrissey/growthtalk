@@ -23,6 +23,7 @@
 
     // Offset for Main Navigation
     $('#mainNav').affix({
+        console.log("AFFIX")
         offset: {
             top: 50
         }
