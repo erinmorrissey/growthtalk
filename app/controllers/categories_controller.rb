@@ -6,7 +6,7 @@ class CategoriesController < ApplicationController
   end
 
   def new
-    @category = Category.new
+    @category = authorize Category.new
   end
 
   def create
@@ -21,6 +21,7 @@ class CategoriesController < ApplicationController
   end
 
   def update
+    authorize @category
     @category.update_attributes(category_params)
     redirect_to category_path
   end
