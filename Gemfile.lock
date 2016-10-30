@@ -131,6 +131,7 @@ GEM
       thor (>= 0.18.1, < 2.0)
     rainbow (2.1.0)
     rake (11.3.0)
+    ratyrate (1.2.2.alpha)
     rdoc (4.2.2)
       json (~> 1.4)
     responders (2.3.0)
@@ -221,6 +222,7 @@ DEPENDENCIES
   pg
   rails (= 4.2.3)
   rails_12factor
+  ratyrate
   rspec-rails (~> 3.0)
   rubocop (~> 0.44.1)
   sass-rails
