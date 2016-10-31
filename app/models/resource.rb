@@ -3,4 +3,6 @@ class Resource < ActiveRecord::Base
   has_many :comments
 
   validates :name, presence: true
+
+  ratyrate_rateable 'overall'
 end
