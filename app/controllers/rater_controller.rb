@@ -1,7 +1,7 @@
 class RaterController < ApplicationController
   def create
     if user_signed_in?
-      get_obj
+      find_obj
       render json: true
     else
       render json: false
