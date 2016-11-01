@@ -1,6 +1,7 @@
 class ResourcesController < ApplicationController
   before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
   before_action :find_resource, only: [:show, :edit, :update, :destroy]
+  after_action :verify_authorized, only: [:edit?, :update?, :destroy?]
 
   def new
     @category = Category.find_by(id: params[:category_id])
@@ -23,9 +24,11 @@ class ResourcesController < ApplicationController
   end
 
   def edit
+    authorize @resource
   end
 
   def update
+    authorize @resource
     @resource.update_attributes(resource_params)
     if @resource.valid?
       redirect_to category_path(@resource.category_id)
@@ -35,6 +38,7 @@ class ResourcesController < ApplicationController
   end
 
   def destroy
+    authorize @resource
     @resource.destroy
     redirect_to categories_path
   end
