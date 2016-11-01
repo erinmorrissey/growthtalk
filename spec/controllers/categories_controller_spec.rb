@@ -1,6 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe CategoriesController, type: :controller do
+  let(:cat) { FactoryGirl.create(:category) }
+  let(:user) { FactoryGirl.create(:user) }
+
   describe 'categories#index' do
     it 'shows the page' do
       get :index
@@ -10,10 +13,6 @@ RSpec.describe CategoriesController, type: :controller do
 
   describe 'categories#show' do
     it 'shows the page - if the category is found' do
-      user = FactoryGirl.create(:user)
-      sign_in user
-      cat = FactoryGirl.create(:category)
-      # triggers HTTP GET request to /categories/:id, where :id is given the cat.id we just created
       get :show, id: cat.id
       expect(response).to render_template(:show)
       expect(response).to have_http_status(:success)
@@ -27,7 +26,6 @@ RSpec.describe CategoriesController, type: :controller do
 
   context 'when user is logged in (non-admin)' do
     before do
-      user = FactoryGirl.create(:user)
       sign_in user
     end
 
@@ -40,7 +38,6 @@ RSpec.describe CategoriesController, type: :controller do
 
     describe 'categories#create' do
       it 'creates a new category in the DB' do
-        cat = FactoryGirl.create(:category)
         expect(cat.name).to eq 'test category'
         expect(response).to have_http_status(:success)
       end
@@ -55,7 +52,6 @@ RSpec.describe CategoriesController, type: :controller do
 
     describe 'categories#edit' do
       it 'shows the edit form - if the category is found' do
-        cat = FactoryGirl.create(:category)
         get :edit, id: cat.id
         expect(response).to have_http_status(:success)
       end
@@ -68,7 +64,6 @@ RSpec.describe CategoriesController, type: :controller do
 
     describe 'categories#update' do
       it 'updates the category in the DB, re-direct to #show page - if the category is found' do
-        cat = FactoryGirl.create(:category)
         patch :update, id: cat.id, category: { name: 'test category updated' }
         expect(response).to redirect_to category_path
         # verifies the category we originally created for the test had it's name
@@ -119,7 +114,6 @@ RSpec.describe CategoriesController, type: :controller do
 
     describe 'categories#edit action' do
       it 'requires users to be logged in to view the categories#edit page' do
-        cat = FactoryGirl.create(:category)
         get :edit, id: cat.id
         expect(response).to redirect_to new_user_session_path
       end
@@ -127,7 +121,6 @@ RSpec.describe CategoriesController, type: :controller do
 
     describe 'categories#update' do
       it 'requires users to be logged in to submit the categories#edit form' do
-        cat = FactoryGirl.create(:category)
         patch :update, id: cat.id, category: { name: 'test category updated' }
         expect(response).to redirect_to new_user_session_path
       end
@@ -135,7 +128,6 @@ RSpec.describe CategoriesController, type: :controller do
 
     describe 'categories#destroy' do
       it 'requires users to be logged in to destroy a category' do
-        cat = FactoryGirl.create(:category)
         delete :destroy, id: cat.id
         expect(response).to redirect_to new_user_session_path
       end
