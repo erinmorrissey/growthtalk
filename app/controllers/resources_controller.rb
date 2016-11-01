@@ -1,5 +1,7 @@
 class ResourcesController < ApplicationController
+  before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
   before_action :find_resource, only: [:show, :edit, :update, :destroy]
+  after_action :verify_authorized, only: [:edit?, :update?, :destroy?]
 
   def new
     @category = Category.find_by(id: params[:category_id])
@@ -9,8 +11,12 @@ class ResourcesController < ApplicationController
   def create
     @category = Category.find_by(id: params[:category_id])
     return render text: 'Not Found :(', status: :not_found if @category.blank?
-    @category.resources.create(resource_params)
-    redirect_to categories_path
+    @resource = @category.resources.create(resource_params)
+    if @resource.valid?
+      redirect_to categories_path
+    else
+      render :new, status: :unprocessable_entity
+    end
   end
 
   def show
@@ -18,14 +24,21 @@ class ResourcesController < ApplicationController
   end
 
   def edit
+    authorize @resource
   end
 
   def update
+    authorize @resource
     @resource.update_attributes(resource_params)
-    redirect_to category_path(@resource.category_id)
+    if @resource.valid?
+      redirect_to category_path(@resource.category_id)
+    else
+      render :new, status: :unprocessable_entity
+    end
   end
 
   def destroy
+    authorize @resource
     @resource.destroy
     redirect_to categories_path
   end

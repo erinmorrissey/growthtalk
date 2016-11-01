@@ -34,20 +34,17 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
-
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
+  gem 'rspec-rails', '~> 3.0'
+  gem 'codeclimate-test-reporter', require: nil
+  gem 'factory_girl_rails', '~> 4.0'
 end
 
 # Access an IRB console on exception pages or by using <%= console %> in views
 gem 'web-console', '~> 2.0', group: :development
 
 gem 'rails_12factor', group: :production
-
-group :development, :test do
-  gem 'rspec-rails', '~> 3.0'
-  gem 'codeclimate-test-reporter', require: nil
-end
 
 # Use RuboCop to enforce Ruby style guidelines
 gem 'rubocop', '~> 0.44.1', require: false
@@ -57,3 +54,4 @@ gem 'bootstrap-sass', '~> 3.3.5.1'
 gem 'sprockets', '2.11.0'
 gem 'devise', '>= 3.2.4'
 gem 'ratyrate'
+gem 'pundit'

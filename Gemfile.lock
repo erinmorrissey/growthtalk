@@ -68,6 +68,11 @@ GEM
     docile (1.1.5)
     erubis (2.7.0)
     execjs (2.7.0)
+    factory_girl (4.7.0)
+      activesupport (>= 3.0.0)
+    factory_girl_rails (4.7.0)
+      factory_girl (~> 4.7.0)
+      railties (>= 3.0.0)
     globalid (0.3.7)
       activesupport (>= 4.1.0)
     hike (1.2.3)
@@ -97,6 +102,8 @@ GEM
       ast (~> 2.2)
     pg (0.19.0)
     powerpack (0.1.1)
+    pundit (1.1.0)
+      activesupport (>= 3.0.0)
     rack (1.6.4)
     rack-test (0.6.3)
       rack (>= 1.0)
@@ -217,9 +224,11 @@ DEPENDENCIES
   codeclimate-test-reporter
   coffee-rails (~> 4.1.0)
   devise (>= 3.2.4)
+  factory_girl_rails (~> 4.0)
   jbuilder (~> 2.0)
   jquery-rails
   pg
+  pundit
   rails (= 4.2.3)
   rails_12factor
   ratyrate
