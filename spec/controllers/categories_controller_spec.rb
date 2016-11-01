@@ -3,15 +3,16 @@ require 'rails_helper'
 RSpec.describe CategoriesController, type: :controller do
   let(:cat) { FactoryGirl.create(:category) }
   let(:user) { FactoryGirl.create(:user) }
+  let(:admin) { FactoryGirl.create(:admin) }
 
-  describe 'categories#index' do
+  describe 'GET #index' do
     it 'shows the page' do
       get :index
       expect(response).to have_http_status(:success)
     end
   end
 
-  describe 'categories#show' do
+  describe 'GET #show' do
     it 'shows the page - if the category is found' do
       get :show, id: cat.id
       expect(response).to render_template(:show)
@@ -24,19 +25,19 @@ RSpec.describe CategoriesController, type: :controller do
     end
   end
 
-  context 'when user is logged in (non-admin)' do
+  context 'when ADMIN user is logged in' do
     before do
-      sign_in user
+      sign_in admin
     end
 
-    describe 'categories#new' do
+    describe 'GET #new' do
       it 'shows the new category form page' do
         get :new
         expect(response).to have_http_status(:success)
       end
     end
 
-    describe 'categories#create' do
+    describe 'POST #create' do
       it 'creates a new category in the DB' do
         expect(cat.name).to eq 'test category'
         expect(response).to have_http_status(:success)
@@ -50,7 +51,7 @@ RSpec.describe CategoriesController, type: :controller do
       end
     end
 
-    describe 'categories#edit' do
+    describe 'GET #edit' do
       it 'shows the edit form - if the category is found' do
         get :edit, id: cat.id
         expect(response).to have_http_status(:success)
@@ -62,7 +63,7 @@ RSpec.describe CategoriesController, type: :controller do
       end
     end
 
-    describe 'categories#update' do
+    describe 'PATCH #update' do
       it 'updates the category in the DB, re-direct to #show page - if the category is found' do
         patch :update, id: cat.id, category: { name: 'test category updated' }
         expect(response).to redirect_to category_path
@@ -86,7 +87,7 @@ RSpec.describe CategoriesController, type: :controller do
       end
     end
 
-    describe 'categories#destroy action' do
+    describe 'DELETE #destroy' do
       it 'removes the category from the DB, redirect to #index page - if the category is found' do
         cat = FactoryGirl.create(:category)
         delete :destroy, id: cat.id
@@ -104,36 +105,77 @@ RSpec.describe CategoriesController, type: :controller do
     end
   end
 
-  context 'when user is not logged in' do
-    describe 'categories#new' do
+  context 'when user is logged in (non-admin)' do
+    before do
+      sign_in user
+    end
+
+    describe 'GET #new' do
+      it 'shows the new category form page' do
+        get :new
+        expect(flash[:alert]).to eq 'You are not authorized to perform this action.'
+      end
+    end
+
+    describe 'POST #create' do
+      it 'creates a new category in the DB' do
+        post :create, category: { name: 'test category' }
+        expect(flash[:alert]).to eq 'You are not authorized to perform this action.'
+      end
+    end
+
+    describe 'GET #edit' do
+      it 'shows the edit form - if the category is found' do
+        get :edit, id: cat.id
+        expect(flash[:alert]).to eq 'You are not authorized to perform this action.'
+      end
+    end
+
+    describe 'PATCH #update' do
+      it 'updates the category in the DB, re-direct to #show page - if the category is found' do
+        patch :update, id: cat.id, category: { name: 'test category updated' }
+        expect(flash[:alert]).to eq 'You are not authorized to perform this action.'
+      end
+    end
+
+    describe 'categories#destroy action' do
+      it 'removes the category from the DB, redirect to #index page - if the category is found' do
+        delete :destroy, id: cat.id
+        expect(flash[:alert]).to eq 'You are not authorized to perform this action.'
+      end
+    end
+  end
+
+  context 'when user is NOT logged in' do
+    describe 'GET #new' do
       it 'requires users to be logged in to view the categories#new page' do
         get :new
         expect(response).to redirect_to new_user_session_path
       end
     end
 
-    describe 'categories#create' do
+    describe 'POST #create' do
       it 'requires users to be logged in to submit the categories#new form' do
         post :create, category: { name: 'test category' }
         expect(response).to redirect_to new_user_session_path
       end
     end
 
-    describe 'categories#edit action' do
+    describe 'GET #edit' do
       it 'requires users to be logged in to view the categories#edit page' do
         get :edit, id: cat.id
         expect(response).to redirect_to new_user_session_path
       end
     end
 
-    describe 'categories#update' do
+    describe 'PATCH #update' do
       it 'requires users to be logged in to submit the categories#edit form' do
         patch :update, id: cat.id, category: { name: 'test category updated' }
         expect(response).to redirect_to new_user_session_path
       end
     end
 
-    describe 'categories#destroy' do
+    describe 'DELETE #destroy' do
       it 'requires users to be logged in to destroy a category' do
         delete :destroy, id: cat.id
         expect(response).to redirect_to new_user_session_path
