@@ -1,6 +1,12 @@
 <header>
     <div class="container">
         <div class="row">
+        <% if notice.present? %>
+            <p class="alert alert-info"><%= notice %></p>
+        <% end %>
+        <% if alert.present? %>
+            <p class="alert alert-danger"><%= alert %></p>
+        <% end %>
             <div class="col-sm-7">
                 <div class="header-content">
                     <div class="header-content-inner">
@@ -12,17 +18,12 @@
             <div class="col-sm-5"></div>
         </div>
     </div>
-    <div class="overlay"></div>
 </header>
 
-<section id="featuress" class="features">
+<section id="homecategories">
     <div class="container">
         <div class="row">
             <div class="col-lg-12 text-center">
-
-                <h1>Hello</h1>
-
-                <br>
 
                 <%= render 'categories/listall' %>
 
