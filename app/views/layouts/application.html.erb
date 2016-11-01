@@ -13,6 +13,7 @@
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
     <%= csrf_meta_tags %>
+    <script src="https://use.fontawesome.com/bb456f059b.js"></script>
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -23,23 +24,35 @@
 
 </head>
 
-<body id="page-top">
+<body>
 
 
     <%= render 'layouts/nav' %>
 
-
-    <% if notice.present? %>
-        <p class="alert alert-info"><%= notice %></p>
-    <% end %>
-    <% if alert.present? %>
-        <p class="alert alert-danger"><%= alert %></p>
-    <% end %>
-
-
     <!-- page content -->
-    <%= yield %>
+    <% if controller.controller_name == "static_pages" && controller.action_name == "index" %>
+        <%= yield %>
+    <% else %>
+        <section id="<%= controller.controller_name %>" class="bkgndcover">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-10 col-md-offset-1">
 
+                        <% if notice.present? %>
+                            <p class="alert alert-info"><%= notice %></p>
+                        <% end %>
+                        <% if alert.present? %>
+                            <p class="alert alert-danger"><%= alert %></p>
+                        <% end %>
+
+                        <%= yield %>
+                        
+                    </div>
+                </div>
+            </div>
+        </section>
+    <%end%>
+        
 
     <%= render 'layouts/footer' %>
 
