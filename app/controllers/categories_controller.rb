@@ -1,4 +1,5 @@
 class CategoriesController < ApplicationController
+  before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
   before_action :find_category, only: [:show, :edit, :update, :destroy]
 
   def index
@@ -6,12 +7,16 @@ class CategoriesController < ApplicationController
   end
 
   def new
-    @category = authorize Category.new
+    @category = Category.new
   end
 
   def create
-    Category.create(category_params)
-    redirect_to categories_path
+    @category = Category.create(category_params)
+    if @category.valid?
+      redirect_to categories_path
+    else
+      render :new, status: :unprocessable_entity
+    end
   end
 
   def show
@@ -21,7 +26,7 @@ class CategoriesController < ApplicationController
   end
 
   def update
-    authorize @category
+    # authorize @category
     @category.update_attributes(category_params)
     redirect_to category_path
   end
