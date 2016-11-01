@@ -10,4 +10,9 @@ FactoryGirl.define do
   factory :category do
     name 'test category'
   end
+
+  factory :resource do
+    name 'test resource'
+    association :category
+  end
 end

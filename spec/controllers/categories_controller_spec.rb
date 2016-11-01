@@ -73,6 +73,13 @@ RSpec.describe CategoriesController, type: :controller do
         expect(cat.name).to eq 'test category updated'
       end
 
+      it 'renders categories#edit form as unprocessable_entity - if the form validation fails' do
+        patch :update, id: cat.id, category: { name: '' }
+        expect(response).to have_http_status(:unprocessable_entity)
+        cat.reload
+        expect(cat.name).to eq 'test category'
+      end
+
       it 'returns a 404 error - if the category is NOT found' do
         patch :update, id: 'TACOCAT', category: { name: 'test category updated' }
         expect(response).to have_http_status(:not_found)

@@ -28,7 +28,11 @@ class CategoriesController < ApplicationController
   def update
     # authorize @category
     @category.update_attributes(category_params)
-    redirect_to category_path
+    if @category.valid?
+      redirect_to category_path
+    else
+      render :new, status: :unprocessable_entity
+    end
   end
 
   def destroy
