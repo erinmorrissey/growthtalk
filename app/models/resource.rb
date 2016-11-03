@@ -9,6 +9,6 @@ class Resource < ActiveRecord::Base
   include AlgoliaSearch
 
   algoliasearch per_environment: true do
-    attribute :name, :logo_image
+    attribute :name, :logo_image, :category
   end
 end
