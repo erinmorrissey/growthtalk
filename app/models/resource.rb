@@ -5,4 +5,10 @@ class Resource < ActiveRecord::Base
   validates :name, presence: true
 
   ratyrate_rateable 'overall'
+
+  include AlgoliaSearch
+
+  algoliasearch per_environment: true do
+    attribute :name, :logo_image
+  end
 end

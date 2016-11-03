@@ -36,6 +36,12 @@ GEM
       minitest (~> 5.1)
       thread_safe (~> 0.3, >= 0.3.4)
       tzinfo (~> 1.1)
+    algoliasearch (1.11.0)
+      httpclient (~> 2.8.2)
+      json (>= 1.5.1)
+    algoliasearch-rails (1.16.0)
+      algoliasearch (~> 1.11.0)
+      json (>= 1.5.1)
     arel (6.0.3)
     ast (2.3.0)
     autoprefixer-rails (6.5.1.1)
@@ -76,6 +82,7 @@ GEM
     globalid (0.3.7)
       activesupport (>= 4.1.0)
     hike (1.2.3)
+    httpclient (2.8.2.4)
     i18n (0.7.0)
     jbuilder (2.6.0)
       activesupport (>= 3.0.0, < 5.1)
@@ -219,6 +226,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  algoliasearch-rails
   bootstrap-sass (~> 3.3.5.1)
   byebug
   codeclimate-test-reporter
