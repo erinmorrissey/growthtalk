@@ -16,8 +16,8 @@
     <div id="collapse<%= cat.id %>" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading<%= cat.id %>">
       <div class="panel-body">
         <ul class="list-group">
-          <% cat.resources.each do |res| %>
-            <li class="list-group-item"><%= link_to res.name, resource_path(res) %></li>
+          <% cat.resources.each do |resource| %>
+            <li class="list-group-item"><%= link_to resource.name, resource_path(resource) %></li>
           <% end %>
         </ul>
       </div>
