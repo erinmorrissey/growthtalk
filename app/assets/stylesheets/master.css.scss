@@ -11,6 +11,7 @@ $bluegrey900: #263238;
 $bootstrap-green: #5cb85c;
 $bootstrap-dkgreen: #449d44;
 $amberA200: #FFD740;
+$footerminheight: 125px;
 
 
 .heading-font {
@@ -34,6 +35,7 @@ body {
 }
 body {
   font-family: 'Lato', Helvetica, Arial, sans-serif;
+  padding-bottom: $footerminheight;
 }
 a {
   -webkit-transition: all 0.35s;
@@ -294,6 +296,7 @@ section#homecategories a {
 .homecatbox {
   background-color: white;
   border: 1px solid transparent;
+  border-radius: 4px;
   -webkit-box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1);
   box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1);
   font-size: 18px;
@@ -319,6 +322,14 @@ section#homecategories a {
 section {
   padding: 100px 0;
 }
+@media (min-width: 768px) {
+  section#categories {
+    padding-top: 170px;
+  }
+}
+section h1 {
+  margin-bottom: 40px;
+}
 section h2 {
   font-size: 46px;
 }
@@ -343,6 +354,43 @@ section.bkgndcover .container .row .col-md-10 {
     background-image:none;
   }
 }
+section#categories .panel-default > .panel-heading {
+  background-color: $bootstrap-green;
+  color: white;
+}
+section#categories .panel-title {
+  font-size: 18px;
+}
+section#categories .panel-heading:hover {
+  background-color: $bootstrap-dkgreen;
+}
+section#categories .panel-heading h4 a:hover,
+section#categories .panel-heading h4 a:active,
+section#categories .panel-heading h4 a:focus {
+  color: white;
+  text-decoration: none;
+}
+i.fa {
+  margin-right: 8px;
+}
+section#categories .list-group-item {
+  border-top: 1px solid #ddd;
+  border-right: none;
+  border-bottom: none;
+  border-left: none;
+  padding: 15px;
+}
+section#categories .list-group-item:first-child {
+  border-top: none;
+}
+section#categories .list-group-item a {
+  color: #333;
+  font-size: 18px;
+}
+section#categories .list-group-item a:hover {
+  color: $amberA200;
+  text-decoration: none;
+}
 
 
 
@@ -355,6 +403,7 @@ footer {
   position:absolute;
   bottom:0;
   width:100%;
+  min-height: $footerminheight;
 }
 @media (max-width: 768px) {
   footer {
