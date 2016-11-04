@@ -1,5 +1,4 @@
 <% @categories.each do |cat| %>
-  <%= cat.name %>
-  <%= link_to cat.name, category_path(cat) %>
+  <%= link_to cat.name, category_path(cat), class: 'category' %>
   <hr>
 <% end %>
