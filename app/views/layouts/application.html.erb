@@ -12,8 +12,13 @@
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
-    <%= csrf_meta_tags %>
     <script src="https://use.fontawesome.com/bb456f059b.js"></script>
+    <!-- AlgoliaSearch JS Client and autocomplete.js library -->
+    <script src="https://cdn.jsdelivr.net/algoliasearch/3/algoliasearch.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/autocomplete.js/0/autocomplete.min.js"></script>
+    
+    <%= csrf_meta_tags %>
+    
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -59,6 +64,50 @@
 
     <!-- Plugin JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
+
+    <!-- Initialize search autocomplete menu -->
+    <script>
+    var client = algoliasearch("G1FKOVL9DQ", "da2177e8d641a313d81f41d880788685");
+    var index = client.initIndex('Resource_development');
+    //DOM Binding
+    var searchInput = document.getElementById("aa-search-input");
+    var inputContainer = document.getElementById("aa-input-container");
+
+    //initialize autocomplete on search input (ID selector must match)
+    //AND handle add/removing a class based on if text has been entered in the search input
+    //.on() attaches custom event handler - autocomplete:updated triggers when dataset is rendered
+    autocomplete('#aa-search-input', 
+    { hint: true, debug: true }, { 
+        source: autocomplete.sources.hits(index, {hitsPerPage: 5}),
+        //value to be displayed in input control after user's suggestion selection 
+        displayKey: 'name',
+        //hash of templates used when rendering dataset
+        templates: { 
+            //'suggestion' templating function used to render a single suggestion
+            suggestion: function(suggestion) {
+              console.log(suggestion);
+              var resourceID = suggestion.objectID;
+              return '<a href="/resources/' + resourceID + '"><span>' +
+                suggestion._highlightResult.name.value + '</span><span>' + 
+                suggestion._highlightResult.category.name.value + '</span></a>';
+            }
+        }
+    }).on('autocomplete:updated', function() {
+        if (searchInput.value.length > 0) { 
+            inputContainer.classList.add("input-has-value");
+        }
+        else {
+            inputContainer.classList.remove("input-has-value");
+        }
+    });
+
+    //Handle clearing the search input on close icon click
+    document.getElementById("icon-close").addEventListener("click", function() { 
+        searchInput.value = ""; 
+        inputContainer.classList.remove("input-has-value"); 
+    });
+    </script>
+
 
 </body>
 </html>
