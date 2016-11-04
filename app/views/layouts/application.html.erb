@@ -67,8 +67,8 @@
 
     <!-- Initialize search autocomplete menu -->
     <script>
-    var client = algoliasearch("G1FKOVL9DQ", "da2177e8d641a313d81f41d880788685");
-    var index = client.initIndex('Resource_development');
+    var client = algoliasearch('<%= ENV['ALGOLIASEARCH_APPLICATION_ID'] %>', '<%= ENV['ALGOLIASEARCH_API_KEY_SEARCH'] %>');
+    var index = client.initIndex('Resource_<%= Rails.env %>');
     //DOM Binding
     var searchInput = document.getElementById("aa-search-input");
     var inputContainer = document.getElementById("aa-input-container");
