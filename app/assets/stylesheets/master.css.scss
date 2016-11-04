@@ -323,7 +323,8 @@ section {
   padding: 100px 0;
 }
 @media (min-width: 768px) {
-  section#categories {
+  section#categories,
+  section#resources {
     padding-top: 170px;
   }
 }
@@ -333,6 +334,11 @@ section h1 {
 section h2 {
   font-size: 46px;
 }
+section#categories h2,
+section#resources h2 {
+  font-size:26px;
+  margin: 0 0 20px;
+}
 section.bkgndcover {
   background-image: url('/assets/women-talking.jpg');
   background-position: center top;
@@ -340,6 +346,8 @@ section.bkgndcover {
   -moz-background-size: cover;
   background-size: cover;
   -o-background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
 }
 section.bkgndcover .container .row .col-md-10 {
   background-color:white;
@@ -354,7 +362,8 @@ section.bkgndcover .container .row .col-md-10 {
     background-image:none;
   }
 }
-section#categories h6 a.breadcrumb {
+section#categories h6 a.breadcrumb,
+section#resources h6 a.breadcrumb {
   padding: 0px;
   background-color: white;
   font-size: 11px;
@@ -378,14 +387,18 @@ section#categories .panel-heading h4 a:focus {
 i.fa {
   margin-right: 8px;
 }
-section#categories .list-group-item {
+section#categories .list-group-item,
+section#resources .list-group-item {
   border-top: 1px solid #ddd;
   border-right: none;
   border-bottom: none;
   border-left: none;
-  padding: 15px;
+  padding: 20px 0;
+  font-size: 15px;
+  line-height: 150%;
 }
-section#categories .list-group-item:first-child {
+section#categories .list-group-item:first-child,
+section#resources .list-group-item:first-child {
   border-top: none;
 }
 section#categories .list-group-item a {
@@ -395,6 +408,10 @@ section#categories .list-group-item a {
 section#categories .list-group-item a:hover {
   color: $amberA200;
   text-decoration: none;
+}
+section#resources textarea#comment_comment_text {
+  height: 150px;
+  margin-bottom: 20px;
 }
 
 

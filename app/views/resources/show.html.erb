@@ -1,25 +1,35 @@
-<%= @resource.name %>
+<h6><%= link_to @category.name, category_path(@category), class: 'breadcrumb' %> > <%= @resource.name %></h6>
 
-<%= link_to 'Edit', edit_resource_path(@resource) %>
-<%= link_to 'Destroy', resource_path(@resource), method: :delete, data: {confirm: 'Are you sure you want to delete this?'} %>
+<h1><%= @resource.name %></h1>
 
-
-<br>
-
-<% @resource.comments.each do |comment| %>
-  <%= comment.comment_text %>
+<% if current_user && current_user.admin? %>
+  <%= link_to 'Edit', edit_resource_path(@resource) %>
+  <%= link_to 'Destroy', resource_path(@resource), method: :delete, data: {confirm: 'Are you sure you want to delete this?'} %>
 <% end %>
 
-<br>
+<!-- Left col -->
+<div class="col-md-4">
+  <div id="imgplaceholder" style="background-color:#ddd;text-align:center;height:175px;">logo goes here</div>
+  <br>
+  <%= rating_for @resource, 'overall', enable_half: true, half_show: true, space: true, disable_after_rate: false, cancel_place: 'right' %>
+  <br>
+  <p><%= @resource.url %></p>
+</div>
 
-<%= simple_form_for @comment, url: resource_comments_path(@resource.id) do |f| %>
-  <%= f.input :comment_text %>
-  <%= f.submit "Add Comment" %>
-<% end %>
+<!-- Right col -->
+<div class="col-md-8">
+  <h2>Reviews for <%= @resource.name %></h2>
 
+  <ul class="list-group">
+    <% @resource.comments.each do |comment| %>
+      <li class="list-group-item"><%= comment.comment_text %></li>
+    <% end %>
+  </ul>
 
+  <h2>Add Your Review</h2>
+  <%= simple_form_for @comment, url: resource_comments_path(@resource.id) do |f| %>
+    <%= f.input :comment_text, label: 'Review text' %>
+    <%= f.submit "Add Review", class: 'btn btn-sm btn-success' %>
+  <% end %>
+</div>
 
-
-<br>
-
-<%= rating_for @resource, 'overall', enable_half: true, half_show: true, space: true, disable_after_rate: false %>

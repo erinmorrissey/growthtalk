@@ -20,6 +20,7 @@ class ResourcesController < ApplicationController
   end
 
   def show
+    @category = Category.find_by(id: @resource.category_id)
     @comment = Comment.new
   end
 
