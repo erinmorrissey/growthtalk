@@ -1,0 +1,52 @@
+var cacheName = 'growthtalk-dev-1';
+var filesToCache = [
+  '<%= asset_path "custom.js" %>',
+  '<%= asset_path "jquery.raty.js" %>',
+  '<%= asset_path "ratyrate.js.erb" %>',
+  '<%= asset_path "application.css" %>',
+  '<%= asset_path "application.scss" %>',
+  '<%= asset_path "master.css.scss" %>',
+  '<%= asset_path "search.css.scss" %>',
+  '<%= asset_path "woman-with-ipad.jpg" %>',
+  '<%= asset_path "women-talking.jpg" %>'
+]
+
+// When the service worker is registered, an install event is triggered
+// the first time the user visits the page. In this event handler, we
+// cache all the assets needed for the app
+self.addEventListener('install', function onInstall(event) {
+  console.log('[ServiceWorker] Install');
+  event.waitUntil(
+    caches.open(cacheName).then(function prefill(cache) {
+      console.log('[ServiceWorker] Caching app shell');
+      return cache.addAll(filesToCache);
+    })
+  );
+});
+
+// ensures the service worker updates its cache whenever any of the app shell
+// files change — the cacheName var MUST be incremented for this to work !
+self.addEventListener('activate', function(event) {
+  console.log('[ServiceWorker] Activate');
+  event.waitUntil(
+    caches.keys().then(function(keyList) {
+      return Promise.all(keyList.map(function(key) {
+        if (key !== cacheName) {
+          console.log('[ServiceWorker] Removing old cache', key);
+          return caches.delete(key);
+        }
+      }));
+    })
+  );
+  return self.clients.claim();
+});
+
+// serve the app shell from the cache
+self.addEventListener('fetch', function(event) {
+  console.log('[ServiceWorker] Fetch', event.request.url);
+  event.respondWith(
+    caches.match(event.request).then(function(response) {
+      return response || fetch(event.request);
+    })
+  );
+});
