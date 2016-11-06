@@ -1,14 +1,15 @@
 class CategoriesController < ApplicationController
   before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
   before_action :find_category, only: [:show, :edit, :update, :destroy]
-  after_action :verify_authorized, except: [:index, :show]
+  after_action :verify_authorized, except: [:new, :index, :show]
 
   def index
     @categories = Category.all
   end
 
   def new
-    @category = authorize Category.new
+    # @category = authorize Category.new
+    @category = Category.new
   end
 
   def create
