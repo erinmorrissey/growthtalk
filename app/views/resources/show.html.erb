@@ -1,6 +1,10 @@
 <h6><%= link_to @category.name, category_path(@category), class: 'breadcrumb' %> > <%= @resource.name %></h6>
 
-<h1><%= @resource.name %></h1>
+<h1 class="pull-left"><%= @resource.name %></h1>
+
+<%= link_to 'Write a Review', '#writereview', class: 'btn btn-md btn-warning newresbtn' %>
+
+<div class="clearfix"></div>
 
 <% if current_user && current_user.admin? %>
   <%= link_to 'Edit', edit_resource_path(@resource) %>
@@ -26,7 +30,7 @@
     <% end %>
   </ul>
 
-  <h2>Add Your Review</h2>
+  <h2 id="writereview">Add Your Review</h2>
   <%= simple_form_for @comment, url: resource_comments_path(@resource.id) do |f| %>
     <%= f.input :comment_text, label: 'Review text' %>
     <%= f.submit "Add Review", class: 'btn btn-sm btn-success' %>

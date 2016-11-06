@@ -1,6 +1,10 @@
 <h6><a href="/categories" class="breadcrumb">Categories</a> > <%= @category.name %></h6>
 
-<h1><%= @category.name %></h1>
+<h1 class="pull-left"><%= @category.name %></h1>
+
+<%= link_to 'Add a New Resource', new_category_resource_path(@category), class: 'btn btn-md btn-warning newresbtn' %>
+
+<div class="clearfix"></div>
 
 <% if current_user && current_user.admin? %>
   <%= link_to 'Edit', edit_category_path(@category) %>
