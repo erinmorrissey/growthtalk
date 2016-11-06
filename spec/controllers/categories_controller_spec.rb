@@ -110,12 +110,12 @@ RSpec.describe CategoriesController, type: :controller do
       sign_in user
     end
 
-    describe 'GET #new' do
-      it 'shows the new category form page' do
-        get :new
-        expect(flash[:alert]).to eq 'You are not authorized to perform this action.'
-      end
-    end
+    # describe 'GET #new' do
+    #   it 'shows the new category form page' do
+    #     get :new
+    #     expect(flash[:alert]).to eq 'You are not authorized to perform this action.'
+    #   end
+    # end
 
     describe 'POST #create' do
       it 'creates a new category in the DB' do
