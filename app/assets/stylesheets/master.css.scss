@@ -472,7 +472,10 @@ footer ul li a.active {
 
 
 
-
+form.simple_form,
+.form-inputs .input {
+  margin-bottom: 25px;
+}
 .alert {
   text-align:center;
 }
