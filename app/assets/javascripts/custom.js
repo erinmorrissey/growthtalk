@@ -28,4 +28,12 @@ document.addEventListener("turbolinks:load", function() {
         }
     });
 
+    // check if the browser supports service workers — if it does, register the service worker
+    if ('navigator.serviceWorker') {
+      navigator.serviceWorker.register('/serviceworker.js', { scope: './' })
+        .then(function(reg) {
+          console.log('[ServiceWorker] service worker registered!');
+        });
+    }
+
 })(jQuery); // End of use strict
